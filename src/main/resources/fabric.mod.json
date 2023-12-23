@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "thecopperrail",
+	"version": "0.9",
+	"name": "The Copper Rail",
+	"description": "Copper rail is a directional rail. It would push any minecart over it, without the need of a block on one side to start the movement.",
+	"authors": [
+		"iluha168",
+		"schevve_"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/iluha168/MCTheCopperRail"
+	},
+	"license": "MIT",
+	"icon": "assets/thecopperrail/textures/block/copper_rail_on.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.thecopperrail.TCRMod"
+		],
+		"client": [
+			"com.thecopperrail.TCRModClient"
+		]
+	},
+	"mixins": [
+		"thecopperrail.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": ">=1.20",
+		"java": ">=17"
+	},
+	"suggests": {
+	}
+}

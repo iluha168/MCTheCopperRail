@@ -1,0 +1,11 @@
+{
+    "required": true,
+    "package": "com.thecopperrail.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+        "AbstractMinecartMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
