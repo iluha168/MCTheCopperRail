@@ -1,67 +1,5 @@
 {
   "variants": {
-    "inverted=true,powered=false,shape=east_west": {
-      "model": "thecopperrail:block/copper_rail",
-      "y": 270
-    },
-    "inverted=true,powered=false,shape=north_south": {
-      "model": "thecopperrail:block/copper_rail"
-    },
-    "inverted=true,powered=false,shape=ascending_east": {
-      "model": "thecopperrail:block/copper_rail_raised_ne",
-      "y": 90
-    },
-    "inverted=true,powered=false,shape=ascending_north": {
-      "model": "thecopperrail:block/copper_rail_raised_ne"
-    },
-    "inverted=true,powered=false,shape=ascending_south": {
-      "model": "thecopperrail:block/copper_rail_raised_ne",
-      "y": 180
-    },
-    "inverted=true,powered=false,shape=ascending_west": {
-      "model": "thecopperrail:block/copper_rail_raised_ne",
-      "y": 270
-    },
-
-    "inverted=true,powered=true,shape=ascending_east": {
-      "model": "thecopperrail:block/copper_rail_on_raised_ne",
-      "y": 90
-    },
-    "inverted=true,powered=true,shape=ascending_north": {
-      "model": "thecopperrail:block/copper_rail_on_raised_ne"
-    },
-    "inverted=true,powered=true,shape=ascending_south": {
-      "model": "thecopperrail:block/copper_rail_on_raised_ne",
-      "y": 180
-    },
-    "inverted=true,powered=true,shape=ascending_west": {
-      "model": "thecopperrail:block/copper_rail_on_raised_ne",
-      "y": 270
-    },
-    "inverted=true,powered=true,shape=east_west": {
-      "model": "thecopperrail:block/copper_rail_on",
-      "y": 270
-    },
-    "inverted=true,powered=true,shape=north_south": {
-      "model": "thecopperrail:block/copper_rail_on"
-    },
-
-
-    "inverted=false,powered=false,shape=ascending_south": {
-      "model": "thecopperrail:block/copper_rail_raised_sw"
-    },
-    "inverted=false,powered=false,shape=ascending_north": {
-      "model": "thecopperrail:block/copper_rail_raised_sw",
-      "y": 180
-    },
-    "inverted=false,powered=false,shape=ascending_west": {
-      "model": "thecopperrail:block/copper_rail_raised_sw",
-      "y": 90
-    },
-    "inverted=false,powered=false,shape=ascending_east": {
-      "model": "thecopperrail:block/copper_rail_raised_sw",
-      "y": 270
-    },
     "inverted=false,powered=false,shape=east_west": {
       "model": "thecopperrail:block/copper_rail",
       "y": 90
@@ -70,7 +8,22 @@
       "model": "thecopperrail:block/copper_rail",
       "y": 180
     },
-
+    "inverted=false,powered=false,shape=ascending_east": {
+      "model": "thecopperrail:block/copper_rail_raised_ne",
+      "y": 90
+    },
+    "inverted=false,powered=false,shape=ascending_north": {
+      "model": "thecopperrail:block/copper_rail_raised_ne"
+    },
+    "inverted=false,powered=false,shape=ascending_south": {
+      "model": "thecopperrail:block/copper_rail_raised_ne",
+      "y": 180
+    },
+    "inverted=false,powered=false,shape=ascending_west": {
+      "model": "thecopperrail:block/copper_rail_raised_ne",
+      "y": 270
+    },
+    
     "inverted=false,powered=true,shape=east_west": {
       "model": "thecopperrail:block/copper_rail_on",
       "y": 90
@@ -79,18 +32,66 @@
       "model": "thecopperrail:block/copper_rail_on",
       "y": 180
     },
-    "inverted=false,powered=true,shape=ascending_south": {
-      "model": "thecopperrail:block/copper_rail_on_raised_sw"
+    "inverted=false,powered=true,shape=ascending_east": {
+      "model": "thecopperrail:block/copper_rail_on_raised_ne",
+      "y": 90
     },
     "inverted=false,powered=true,shape=ascending_north": {
-      "model": "thecopperrail:block/copper_rail_on_raised_sw",
+      "model": "thecopperrail:block/copper_rail_on_raised_ne"
+    },
+    "inverted=false,powered=true,shape=ascending_south": {
+      "model": "thecopperrail:block/copper_rail_on_raised_ne",
       "y": 180
     },
     "inverted=false,powered=true,shape=ascending_west": {
+      "model": "thecopperrail:block/copper_rail_on_raised_ne",
+      "y": 270
+    },
+
+
+
+    "inverted=true,powered=false,shape=east_west": {
+      "model": "thecopperrail:block/copper_rail",
+      "y": 270
+    },
+    "inverted=true,powered=false,shape=north_south": {
+      "model": "thecopperrail:block/copper_rail"
+    },
+    "inverted=true,powered=false,shape=ascending_south": {
+      "model": "thecopperrail:block/copper_rail_raised_sw"
+    },
+    "inverted=true,powered=false,shape=ascending_north": {
+      "model": "thecopperrail:block/copper_rail_raised_sw",
+      "y": 180
+    },
+    "inverted=true,powered=false,shape=ascending_west": {
+      "model": "thecopperrail:block/copper_rail_raised_sw",
+      "y": 90
+    },
+    "inverted=true,powered=false,shape=ascending_east": {
+      "model": "thecopperrail:block/copper_rail_raised_sw",
+      "y": 270
+    },
+
+    "inverted=true,powered=true,shape=east_west": {
+      "model": "thecopperrail:block/copper_rail_on",
+      "y": 270
+    },
+    "inverted=true,powered=true,shape=north_south": {
+      "model": "thecopperrail:block/copper_rail_on"
+    },
+    "inverted=true,powered=true,shape=ascending_south": {
+      "model": "thecopperrail:block/copper_rail_on_raised_sw"
+    },
+    "inverted=true,powered=true,shape=ascending_north": {
+      "model": "thecopperrail:block/copper_rail_on_raised_sw",
+      "y": 180
+    },
+    "inverted=true,powered=true,shape=ascending_west": {
       "model": "thecopperrail:block/copper_rail_on_raised_sw",
       "y": 90
     },
-    "inverted=false,powered=true,shape=ascending_east": {
+    "inverted=true,powered=true,shape=ascending_east": {
       "model": "thecopperrail:block/copper_rail_on_raised_sw",
       "y": 270
     }
