@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.util.math.BlockPos;
 
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.thecopperrail.CopperRailBlock;
 
-@Debug(export = true)
 @Mixin(AbstractMinecartEntity.class)
 public class AbstractMinecartMixin {
 	@Redirect(method = "moveOnRail", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z"), require = 1)
