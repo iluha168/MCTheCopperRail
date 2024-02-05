@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "thecopperrail",
-	"version": "0.9",
+	"version": "0.9.1",
 	"name": "The Copper Rail",
 	"description": "Copper rail is a directional rail. It would push any minecart over it, without the need of a block on one side to start the movement.",
 	"authors": [

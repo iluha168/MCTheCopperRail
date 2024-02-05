@@ -47,10 +47,8 @@ public class CopperRailBlock extends PoweredRailBlock {
 
     public Vec3d getPushVector(BlockState state) {
         return switch(state.get(getShapeProperty())){
-			case ASCENDING_EAST, EAST_WEST -> new Vec3d(.5,0,0);
-            case ASCENDING_SOUTH, NORTH_SOUTH -> new Vec3d(0,0,.5);
-            case ASCENDING_NORTH -> new Vec3d(0,0,-.5);
-            case ASCENDING_WEST -> new Vec3d(-.5,0,0);
+			case ASCENDING_EAST, ASCENDING_WEST, EAST_WEST -> new Vec3d(.5,0,0);
+            case ASCENDING_SOUTH, ASCENDING_NORTH, NORTH_SOUTH -> new Vec3d(0,0,.5);
 			default -> throw new UnsupportedOperationException();
         };
     }
