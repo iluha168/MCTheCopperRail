@@ -16,13 +16,13 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 public class TCRMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
-		Identifier CopperRailID = new Identifier("thecopperrail","copper_rail");
+		Identifier CopperRailID = Identifier.of("thecopperrail","copper_rail");
 		Registry.register(Registries.BLOCK, CopperRailID, CopperRailBlock.BLOCK     );
 		Registry.register(Registries.ITEM , CopperRailID, CopperRailBlock.BLOCK_ITEM);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(content -> {
 			content.addAfter(Items.ACTIVATOR_RAIL, CopperRailBlock.BLOCK_ITEM);
 		});
-		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
     		if (source.isBuiltin() && LootTables.ABANDONED_MINESHAFT_CHEST.equals(id)) {
 				final int[] i = new int[]{0};
 				tableBuilder.modifyPools(poolBuilder -> {

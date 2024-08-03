@@ -1,7 +1,7 @@
 package com.thecopperrail;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.item.Item;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PoweredRailBlock;
@@ -17,17 +17,14 @@ import net.minecraft.util.math.Vec3d;
 
 public class CopperRailBlock extends PoweredRailBlock {
     public static final Block BLOCK = new CopperRailBlock(
-        FabricBlockSettings.create()
+        AbstractBlock.Settings.create()
         .strength(0.7f, 0.7f)
         .sounds(BlockSoundGroup.METAL)
-        .notSolid()
         .noCollision()
         .requiresTool()
     );
 
-    public static final BlockItem BLOCK_ITEM = new BlockItem(BLOCK,
-        new FabricItemSettings()
-    );
+    public static final BlockItem BLOCK_ITEM = new BlockItem(BLOCK, new Item.Settings());
 
     public CopperRailBlock(Settings settings){
         super(settings);
