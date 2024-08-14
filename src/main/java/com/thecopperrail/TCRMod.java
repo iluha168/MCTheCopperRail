@@ -2,7 +2,7 @@ package com.thecopperrail;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.registry.Registry;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
@@ -22,8 +22,8 @@ public class TCRMod implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(content -> {
 			content.addAfter(Items.ACTIVATOR_RAIL, CopperRailBlock.BLOCK_ITEM);
 		});
-		LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
-    		if (source.isBuiltin() && LootTables.ABANDONED_MINESHAFT_CHEST.equals(id)) {
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+    		if (LootTables.ABANDONED_MINESHAFT_CHEST == key && source.isBuiltin()) {
 				final int[] i = new int[]{0};
 				tableBuilder.modifyPools(poolBuilder -> {
 					if(i[0]++ == 2){
