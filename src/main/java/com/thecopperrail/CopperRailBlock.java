@@ -6,7 +6,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.Direction;
@@ -19,10 +18,7 @@ public class CopperRailBlock extends PoweredRailBlock {
             TCRMod.ID
         ),
         CopperRailBlock::new,
-        AbstractBlock.Settings.create()
-            .strength(0.7f, 0.7f)
-            .sounds(BlockSoundGroup.METAL)
-            .noCollision()
+        Blocks.POWERED_RAIL.getSettings()
     );
 
     public static final Item ITEM = Items.register(BLOCK);
@@ -35,6 +31,7 @@ public class CopperRailBlock extends PoweredRailBlock {
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockState state = super.getPlacementState(ctx);
+	    assert state != null;
 	    boolean isInverted = switch(state.get(getShapeProperty())) {
             case EAST_WEST -> ctx.getHorizontalPlayerFacing() == Direction.EAST;
             case NORTH_SOUTH -> ctx.getHorizontalPlayerFacing() == Direction.SOUTH;
