@@ -7,6 +7,6 @@ import net.minecraft.client.render.RenderLayer;
 public class TCRModClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		BlockRenderLayerMap.INSTANCE.putBlock(CopperRailBlock.BLOCK, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(TCRMod.BLOCK, RenderLayer.getCutout());
 	}	
 }

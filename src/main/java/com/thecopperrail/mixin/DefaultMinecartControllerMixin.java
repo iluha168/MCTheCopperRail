@@ -1,5 +1,6 @@
 package com.thecopperrail.mixin;
 
+import com.thecopperrail.TCRMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 
@@ -29,7 +30,7 @@ public class DefaultMinecartControllerMixin {
 		require = 1
 	)
 	private boolean injectedPoweredRailCheck(BlockState state, Block POWERED_RAIL) {
-		return state.isOf(POWERED_RAIL) || state.isOf(CopperRailBlock.BLOCK);
+		return state.isOf(POWERED_RAIL) || state.isOf(TCRMod.BLOCK);
 	}
 
 	@Inject(
@@ -45,7 +46,7 @@ public class DefaultMinecartControllerMixin {
 		require = 1
 	)
 	private void setNewVelocity(ServerWorld world, CallbackInfo ci, BlockPos blockPos, BlockState blockState, double v0, double v1, double v2, Vec3d v3, boolean v4, boolean v5, double v6, Vec3d v7, RailShape railShape) {
-		if (!blockState.isOf(CopperRailBlock.BLOCK)) {
+		if (!blockState.isOf(TCRMod.BLOCK)) {
 			return;
 		}
 		ci.cancel();

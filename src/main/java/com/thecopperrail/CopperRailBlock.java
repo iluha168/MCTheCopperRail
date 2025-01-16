@@ -1,28 +1,13 @@
 package com.thecopperrail;
 
 import net.minecraft.block.*;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class CopperRailBlock extends PoweredRailBlock {
-    public static final Block BLOCK = Blocks.register(
-        RegistryKey.of(
-            RegistryKeys.BLOCK,
-            TCRMod.ID
-        ),
-        CopperRailBlock::new,
-        Blocks.POWERED_RAIL.getSettings()
-    );
-
-    public static final Item ITEM = Items.register(BLOCK);
-
     public CopperRailBlock(Settings settings){
         super(settings);
         setDefaultState(getDefaultState().with(Properties.INVERTED, false));

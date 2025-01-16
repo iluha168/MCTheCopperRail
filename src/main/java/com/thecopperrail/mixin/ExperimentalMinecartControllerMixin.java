@@ -1,6 +1,7 @@
 package com.thecopperrail.mixin;
 
 import com.thecopperrail.CopperRailBlock;
+import com.thecopperrail.TCRMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PoweredRailBlock;
@@ -25,7 +26,7 @@ public abstract class ExperimentalMinecartControllerMixin {
 		require = 1
 	)
 	private boolean injectedPoweredRailCheck(BlockState state, Block block) {
-		return state.isOf(block) || state.isOf(CopperRailBlock.BLOCK);
+		return state.isOf(block) || state.isOf(TCRMod.BLOCK);
 	}
 
 	@Inject(
@@ -35,7 +36,7 @@ public abstract class ExperimentalMinecartControllerMixin {
 		require = 1
 	)
 	private void setNewVelocity(Vec3d velocity, BlockPos railPos, BlockState railState, CallbackInfoReturnable<Vec3d> cir) {
-		if (railState.isOf(CopperRailBlock.BLOCK) && railState.get(PoweredRailBlock.POWERED)) {
+		if (railState.isOf(TCRMod.BLOCK) && railState.get(PoweredRailBlock.POWERED)) {
 			cir.cancel();
 			Vec3d pushForce = CopperRailBlock.getPushForce(railState);
 			double vLen = velocity.length();
