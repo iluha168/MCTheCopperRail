@@ -3,8 +3,8 @@
     "package": "com.thecopperrail.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
-        "DefaultMinecartControllerMixin",
-        "ExperimentalMinecartControllerMixin"
+        "OldMinecartBehaviorMixin",
+        "NewMinecartBehaviorMixin"
     ],
     "injectors": {
         "defaultRequire": 1
