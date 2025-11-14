@@ -1,18 +1,15 @@
 package com.thecopperrail.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import com.thecopperrail.CopperRailBlock;
 import com.thecopperrail.TCRMod;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.vehicle.NewMinecartBehavior;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.PoweredRailBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(NewMinecartBehavior.class)
 public abstract class NewMinecartBehaviorMixin {
@@ -29,32 +26,60 @@ public abstract class NewMinecartBehaviorMixin {
 		return state.is(block) || state.is(TCRMod.BLOCK);
 	}
 
-	@Inject(
+	@Redirect(
 		method = "calculateBoostTrackSpeed",
-		at = @At(value = "HEAD"),
-		cancellable = true,
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			ordinal = 0
+		),
 		require = 1
 	)
-	private void setNewVelocity(Vec3 velocity, BlockPos railPos, BlockState railState, CallbackInfoReturnable<Vec3> cir) {
-		if (railState.is(TCRMod.BLOCK) && railState.getValue(PoweredRailBlock.POWERED)) {
-			cir.cancel();
-			Vec3 pushForce = CopperRailBlock.getPushForce(railState);
-			double vLen = velocity.length();
-			if (vLen > 0.01) {
-				Vec3 normalV = velocity.normalize();
-				// Both pushForce and normalV are normal,
-				// therefore their dot product is cos(angle between them)
-				double correlation = pushForce.dot(normalV);
-				cir.setReturnValue(
-					correlation > 0.5?
-					// Vanilla acceleration formula
-					normalV.scale(vLen + 0.06)
-					// A rough inverse of vanilla acceleration
-					: velocity.scale(vLen/(vLen+0.06))
-				);
-			} else {
-				cir.setReturnValue(pushForce.scale(vLen + 0.2));
-			}
+	private boolean redirectedPoweredRailCheck2(BlockState state, Block block) {
+		return state.is(block) || state.is(TCRMod.BLOCK);
+	}
+
+	@Redirect(
+		method = "calculateBoostTrackSpeed",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/phys/Vec3;scale(D)Lnet/minecraft/world/phys/Vec3;",
+			ordinal = 0
+		),
+		require = 1
+	)
+	private Vec3 modifyVelocity(
+		Vec3 normalizedVelocity,
+		double multiplier,
+		@Local(argsOnly = true) Vec3 originalVelocity,
+		@Local(argsOnly = true) BlockState railState
+	) {
+		if (!railState.is(TCRMod.BLOCK)) {
+			// Minecart is moving along the rail's direction, do not modify the behaviour
+			return normalizedVelocity.scale(multiplier);
 		}
+
+		Vec3 pushForce = CopperRailBlock.getPushForce(railState);
+		// Both pushForce and normalizedVelocity are normal,
+		// therefore their dot product is cos(angle between them)
+		double correlation = pushForce.dot(normalizedVelocity);
+		if (correlation > 0) {
+			// Minecart is moving along the rail's direction, do not modify the behaviour
+			return normalizedVelocity.scale(multiplier);
+		}
+
+		// Original equation: newVelocity = originalVelocity.normalize().scale(originalVelocity.length() + 0.06)
+		// Inverse function to use for deceleration:
+		// originalVelocity = newVelocity.normalize().scale(newVelocity.length() + 0.06)
+		// originalVelocity = newVelocity.scale(1 / newVelocity.length()).scale(newVelocity.length() + 0.06)
+		// originalVelocity = newVelocity.scale((newVelocity.length() + 0.06) / newVelocity.length())
+		// newVelocity = originalVelocity.scale(newVelocity.length() / (newVelocity.length() + 0.06))
+
+		// Therefore, newVelocity.length() = originalVelocity.length() * newVelocity.length() / (newVelocity.length() + 0.06)
+		// which comes up to newVelocity.length() = originalVelocity.length() - 0.06
+		double dv = multiplier - originalVelocity.length();
+		double newVelocityLength = originalVelocity.length() - dv;
+
+		return originalVelocity.scale(newVelocityLength / (newVelocityLength + dv));
 	}
 }

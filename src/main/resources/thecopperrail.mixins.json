@@ -3,6 +3,7 @@
     "package": "com.thecopperrail.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
+        "AbstractMinecartMixin",
         "OldMinecartBehaviorMixin",
         "NewMinecartBehaviorMixin"
     ],
