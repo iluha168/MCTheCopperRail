@@ -1,44 +1,46 @@
 package com.thecopperrail;
 
-import net.minecraft.block.*;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.PoweredRailBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class CopperRailBlock extends PoweredRailBlock {
-    public CopperRailBlock(Settings settings){
+    public CopperRailBlock(Properties settings){
         super(settings);
-        setDefaultState(getDefaultState().with(Properties.INVERTED, false));
+        registerDefaultState(defaultBlockState().setValue(BlockStateProperties.INVERTED, false));
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState state = super.getPlacementState(ctx);
-	    assert state != null;
-	    boolean isInverted = switch(state.get(getShapeProperty())) {
-            case EAST_WEST -> ctx.getHorizontalPlayerFacing() == Direction.EAST;
-            case NORTH_SOUTH -> ctx.getHorizontalPlayerFacing() == Direction.SOUTH;
+    public @NotNull BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockState state = super.getStateForPlacement(ctx);
+	    boolean isInverted = switch(state.getValue(getShapeProperty())) {
+            case EAST_WEST -> ctx.getHorizontalDirection() == Direction.EAST;
+            case NORTH_SOUTH -> ctx.getHorizontalDirection() == Direction.SOUTH;
             default -> throw new UnsupportedOperationException();
         };
-        return state.with(Properties.INVERTED, isInverted);
+        return state.setValue(BlockStateProperties.INVERTED, isInverted);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SHAPE, POWERED, WATERLOGGED, Properties.INVERTED);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(SHAPE, POWERED, WATERLOGGED, BlockStateProperties.INVERTED);
     }
 
     /** @return Normalized push direction assuming powered. */
-    static public Vec3d getPushForce(BlockState railState) {
-        Vec3d pushForce = switch(railState.get(SHAPE)){
-            case ASCENDING_EAST, ASCENDING_WEST, EAST_WEST -> new Vec3d(1,0,0);
-            case ASCENDING_SOUTH, ASCENDING_NORTH, NORTH_SOUTH -> new Vec3d(0,0,1);
+    static public Vec3 getPushForce(BlockState railState) {
+        Vec3 pushForce = switch(railState.getValue(SHAPE)){
+            case ASCENDING_EAST, ASCENDING_WEST, EAST_WEST -> new Vec3(1,0,0);
+            case ASCENDING_SOUTH, ASCENDING_NORTH, NORTH_SOUTH -> new Vec3(0,0,1);
             default -> throw new UnsupportedOperationException();
         };
-        if(railState.get(Properties.INVERTED))
-            pushForce = pushForce.negate();
+        if(railState.getValue(BlockStateProperties.INVERTED))
+            pushForce = pushForce.reverse();
         return pushForce;
     }
 }
