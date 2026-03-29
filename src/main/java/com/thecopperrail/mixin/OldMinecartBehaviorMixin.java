@@ -1,33 +1,33 @@
 package com.thecopperrail.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.thecopperrail.TCRMod;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import com.thecopperrail.CopperRailBlock;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(OldMinecartBehavior.class)
 public class OldMinecartBehaviorMixin {
-	@Redirect(
+	@WrapOperation(
 		method = "moveAlongTrack",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		),
 		require = 1
 	)
-	private boolean redirectedPoweredRailCheck(BlockState state, Block POWERED_RAIL) {
-		return state.is(POWERED_RAIL) || state.is(TCRMod.BLOCK);
+	private boolean redirectedPoweredRailCheck(BlockState state, Object POWERED_RAIL, Operation<Boolean> original) {
+		return original.call(state, POWERED_RAIL) || original.call(state, TCRMod.BLOCK);
 	}
 
 	@Inject(
@@ -41,7 +41,7 @@ public class OldMinecartBehaviorMixin {
 		cancellable = true,
 		require = 1
 	)
-	private void setNewVelocity(ServerLevel world, CallbackInfo ci, @Local BlockState blockState) {
+	private void setNewVelocity(ServerLevel world, CallbackInfo ci, @Local(name = "state") BlockState blockState) {
 		if (!blockState.is(TCRMod.BLOCK)) {
 			return;
 		}

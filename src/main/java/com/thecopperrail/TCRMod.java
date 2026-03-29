@@ -1,8 +1,8 @@
 package com.thecopperrail;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -48,11 +48,11 @@ public class TCRMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content ->
-			content.addAfter(Items.ACTIVATOR_RAIL, ITEM)
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content ->
+			content.insertAfter(Items.ACTIVATOR_RAIL, ITEM)
 		);
 
-		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, _) -> {
     		if (BuiltInLootTables.ABANDONED_MINESHAFT != key || !source.isBuiltin()) {
 				return;
 			}

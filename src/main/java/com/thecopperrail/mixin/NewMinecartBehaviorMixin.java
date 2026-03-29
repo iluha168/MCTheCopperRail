@@ -1,10 +1,11 @@
 package com.thecopperrail.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.thecopperrail.CopperRailBlock;
 import com.thecopperrail.TCRMod;
 import net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,30 +14,30 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(NewMinecartBehavior.class)
 public abstract class NewMinecartBehaviorMixin {
-	@Redirect(
+	@WrapOperation(
 		method = "calculateHaltTrackSpeed",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		),
 		require = 1
 	)
-	private boolean redirectedPoweredRailCheck(BlockState state, Block block) {
-		return state.is(block) || state.is(TCRMod.BLOCK);
+	private boolean redirectedPoweredRailCheck(BlockState state, Object block, Operation<Boolean> original) {
+		return original.call(state, block) || original.call(state, TCRMod.BLOCK);
 	}
 
-	@Redirect(
+	@WrapOperation(
 		method = "calculateBoostTrackSpeed",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		),
 		require = 1
 	)
-	private boolean redirectedPoweredRailCheck2(BlockState state, Block block) {
-		return state.is(block) || state.is(TCRMod.BLOCK);
+	private boolean redirectedPoweredRailCheck2(BlockState state, Object block, Operation<Boolean> original) {
+		return original.call(state, block) || original.call(state, TCRMod.BLOCK);
 	}
 
 	@Redirect(
