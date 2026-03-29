@@ -6,8 +6,8 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -22,7 +22,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TCRMod implements ModInitializer {
-	public final static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("thecopperrail","copper_rail");
+	public final static Identifier ID = Identifier.fromNamespaceAndPath("thecopperrail","copper_rail");
 	public static final Block BLOCK = TCRMod.registerBlock(
 		ResourceKey.create(Registries.BLOCK, ID)
 	);

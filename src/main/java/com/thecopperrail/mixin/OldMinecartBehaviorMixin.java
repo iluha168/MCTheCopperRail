@@ -3,7 +3,7 @@ package com.thecopperrail.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.thecopperrail.TCRMod;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.vehicle.OldMinecartBehavior;
+import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -34,7 +34,7 @@ public class OldMinecartBehaviorMixin {
 		method = "moveAlongTrack",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/vehicle/OldMinecartBehavior;getDeltaMovement()Lnet/minecraft/world/phys/Vec3;",
+			target = "Lnet/minecraft/world/entity/vehicle/minecart/OldMinecartBehavior;getDeltaMovement()Lnet/minecraft/world/phys/Vec3;",
 			shift = At.Shift.BEFORE,
 			ordinal = 10
 		),

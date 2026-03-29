@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.thecopperrail.CopperRailBlock;
 import com.thecopperrail.TCRMod;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 import net.minecraft.world.level.block.PoweredRailBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
