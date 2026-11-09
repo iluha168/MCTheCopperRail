@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TCRMod implements ModInitializer {
@@ -65,7 +65,7 @@ public class TCRMod implements ModInitializer {
 				poolBuilder.add(
 					LootItem.lootTableItem(ITEM)
 					.apply(
-						SetItemCountFunction.setCount(UniformGenerator.between(1, 4))
+						SetItemCountFunction.setCount(ContextIntProviders.between(1, 4))
 					)
 					.setWeight(5)
 				);
